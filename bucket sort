@@ -1,0 +1,52 @@
+# Bucket sort 
+
+def bucket_sort(Percentage):
+    largest = max(Percentage)
+    length = len(Percentage)
+    size = largest/length
+ 
+    buckets = [[] for _ in range(length)]
+    for i in range(length):
+        j = int(Percentage[i]/size)
+        if j != length:
+            buckets[j].append(Percentage[i])
+        else:
+            buckets[length - 1].append(Percentage[i])
+
+    for i in range(length):
+        insertion_sort(buckets[i])
+ 
+    result = []
+    for i in range(length):
+        result = result + buckets[i]
+ 
+    return result
+
+
+def insertion_sort(Percentage):
+    for i in range(1, len(Percentage)):
+        temp = Percentage[i]
+        j = i - 1
+        while (j >= 0 and temp < Percentage[j]):
+            Percentage[j + 1] = Percentage[j]
+            j = j - 1
+        Percentage[j + 1] = temp    
+
+
+Percentage = []
+number = int(input("Enter the Total Number of Students:\n"))
+for i in range(number):
+    value = float(input("Enter the Percentage:\n "))
+    Percentage.append(value)
+insertion_sort(Percentage)
+print(Percentage)
+
+
+print("The Top five scores are:",Percentage)
+minimum = len(Percentage)-6
+maximum = len(Percentage)-1
+index = 1
+for i in range(maximum,minimum,-1):
+    if i>=0:
+        print(f"{index} Top Scorer:",Percentage[i],"\n")
+        index+=1
